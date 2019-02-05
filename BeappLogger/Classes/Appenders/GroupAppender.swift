@@ -25,7 +25,8 @@ public class GroupAppender: FileAppender {
 		formatter.dateFormat = "yyyy-MM-dd"
 		let dateFormat = formatter.string(from: Date())
 		
-		super.init(filename: "log_\(appName)_\(dateFormat).txt")
+		
+		super.init(filename: "shared_\(appName)_\(dateFormat).txt", sharedContainer: true, groupName: groupName)
 
 		var logfiles = self.userDefault?.value(forKey: appName) as? [String] ?? []
 		if !logfiles.contains(self.filePath.path) {
