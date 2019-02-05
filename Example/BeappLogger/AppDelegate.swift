@@ -19,9 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
 		
 		
-		Logger.build(with: PrintAppender(), HtmlAppender(), GroupAppender(groupName: "group.fr.beapp", appName: "ExampleLogger"))
+		Logger.build(with: PrintAppender(), HtmlAppender())
 		
-		Logger.debug(Date())
+		Logger.debug("TEST")
 		Logger.info("TEST")
 		Logger.warn("TEST")
 		Logger.error("TEST")
