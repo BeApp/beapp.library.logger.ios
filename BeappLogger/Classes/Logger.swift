@@ -48,24 +48,54 @@ public class Logger {
 	public static func build(with loggers: LoggerAppender...) {
 		Logger.shared = Logger(loggers: loggers)
 	}
-
-	public static func debug(_ object: Any, filename: String = #file, line: Int = #line, funcName: String = #function) {
+	
+	/// - Parameters:
+	///   - object: Object or message to be logged
+	///   - filename: File name from where loggin to be done
+	///   - line: Line number in file from where the logging is done
+	///   - funcName: Name of the function from where the logging is done
+	///	  - priority: the log priority
+	public static func debug(_ object: Any?, filename: String = #file, line: Int = #line, funcName: String = #function) {
 		broadcastMessage(object, filename: filename, line: line, funcName: funcName, priority: .debug)
 	}
 	
-	public static func info(_ object: Any, filename: String = #file, line: Int = #line, funcName: String = #function) {
+	/// - Parameters:
+	///   - object: Object or message to be logged
+	///   - filename: File name from where loggin to be done
+	///   - line: Line number in file from where the logging is done
+	///   - funcName: Name of the function from where the logging is done
+	///	  - priority: the log priority
+	public static func info(_ object: Any?, filename: String = #file, line: Int = #line, funcName: String = #function) {
 		broadcastMessage(object, filename: filename, line: line, funcName: funcName, priority: .info)
 	}
 	
-	public static func warn(_ object: Any, filename: String = #file, line: Int = #line, funcName: String = #function) {
+	/// - Parameters:
+	///   - object: Object or message to be logged
+	///   - filename: File name from where loggin to be done
+	///   - line: Line number in file from where the logging is done
+	///   - funcName: Name of the function from where the logging is done
+	///	  - priority: the log priority
+	public static func warn(_ object: Any?, filename: String = #file, line: Int = #line, funcName: String = #function) {
 		broadcastMessage(object, filename: filename, line: line, funcName: funcName, priority: .warn)
 	}
 	
-	public static func error(_ object: Any, filename: String = #file, line: Int = #line, funcName: String = #function) {
+	/// - Parameters:
+	///   - object: Object or message to be logged
+	///   - filename: File name from where loggin to be done
+	///   - line: Line number in file from where the logging is done
+	///   - funcName: Name of the function from where the logging is done
+	///	  - priority: the log priority
+	public static func error(_ object: Any?, filename: String = #file, line: Int = #line, funcName: String = #function) {
 		broadcastMessage(object, filename: filename, line: line, funcName: funcName, priority: .error)
 	}
 	
-	private static func broadcastMessage(_ object: Any, filename: String, line: Int, funcName: String, priority: LoggerPriority) {
+	/// - Parameters:
+	///   - object: Object or message to be logged
+	///   - filename: File name from where loggin to be done
+	///   - line: Line number in file from where the logging is done
+	///   - funcName: Name of the function from where the logging is done
+	///	  - priority: the log priority
+	private static func broadcastMessage(_ object: Any?, filename: String, line: Int, funcName: String, priority: LoggerPriority) {
 		let message = createMessage(object, filename: filename, line: line, funcName: funcName, priority: priority)
 		safeExecuteForEach { $0.log(priority: priority, message: message) }
 	}
@@ -90,8 +120,8 @@ public class Logger {
 	///   - line: Line number in file from where the logging is done
 	///   - funcName: Name of the function from where the logging is done
 	///	  - priority: the log priority
-	private static func createMessage(_ object: Any, filename: String, line: Int, funcName: String, priority: LoggerPriority) -> String {
-		return "\(Date().toString()) \(priority.rawValue)[\(sourceFileName(filePath: filename)): \(funcName) (\(line))] \(object)"
+	private static func createMessage(_ object: Any?, filename: String, line: Int, funcName: String, priority: LoggerPriority) -> String {
+		return "\(Date().toString()) \(priority.rawValue)[\(sourceFileName(filePath: filename)): \(funcName) (\(line))] \(object ?? "NIL")"
 	}
 	
 	/// Extract the file name from the file path
