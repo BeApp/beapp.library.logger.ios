@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'BeappLogger'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of BeappLogger.'
+  s.summary          = 'This Pod allows you to centralize the logs of your app, and distribute them wherever you want.'
 
   s.homepage         = 'https://bitbucket.org/beappers/beapp.logger.ios'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
