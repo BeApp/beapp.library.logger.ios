@@ -15,12 +15,13 @@ public class FileAppender: LoggerAppender {
 	public init(filename: String, sharedContainer: Bool = false, groupName: String? = nil) {
 		
 		if sharedContainer,
-			let _groupName = groupName {
-			filePath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: _groupName)!.appendingPathComponent(filename)
-			
+			let _groupName = groupName,
+			let _groupPath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: _groupName) {
+			filePath = _groupPath.appendingPathComponent(filename)
 		} else {
 			filePath = FileAppender.getDocumentsDirectory().appendingPathComponent(filename)
 		}
+		
 		do {
 			if !FileManager.default.fileExists(atPath: filePath.path) {
 				FileManager.default.createFile(atPath: filePath.path, contents: nil, attributes: nil)
