@@ -8,6 +8,11 @@
 
 import Foundation
 
+/**
+Protocol to override to be an Appender
+*/
 public protocol LoggerAppender {
+	
+	/// Override this method to log the message wherever you want (in the console, in a file, etc.)
 	func log(priority: LoggerPriority, message: String)
 }

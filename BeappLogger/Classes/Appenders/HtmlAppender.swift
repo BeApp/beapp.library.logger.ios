@@ -6,7 +6,9 @@
 //
 
 import Foundation
-
+/**
+Appender with the sole objective of saving a log file in an HTML format
+*/
 public class HtmlAppender: FileAppender {
 	
 	public init() {

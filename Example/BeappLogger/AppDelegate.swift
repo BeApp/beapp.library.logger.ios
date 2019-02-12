@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
 		
 		
-		Logger.build(with: PrintAppender(), HtmlAppender())
+		Logger.build(with: PrintAppender(), HtmlAppender(), GroupAppender(groupName: "group.fr.beapp", appName: "Example"))
 		
 		Logger.debug("TEST")
 		Logger.info("TEST")

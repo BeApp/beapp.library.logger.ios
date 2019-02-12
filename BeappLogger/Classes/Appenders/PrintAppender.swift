@@ -6,7 +6,11 @@
 //
 
 import Foundation
+/**
+Appender by default
 
+Use simply the print method to print the message in the console
+*/
 public class PrintAppender: LoggerAppender {
 	
 	public init(){}

@@ -5,7 +5,6 @@
 //  Created by Anthony Dudouit on 04/02/2019.
 //  Copyright © 2019 Beapp. All rights reserved.
 //
-// inspired from https://medium.com/@sauvik_dolui/developing-a-tiny-logger-in-swift-7221751628e6
 
 import Foundation
 
@@ -22,7 +21,12 @@ public enum LoggerPriority: String {
 	case error = "[🔥]" // error
 }
 
+/**
+Logger class with the possibility to add multiple Appenders (see LoggerAppender).
 
+Inspired by the article [Developing a Tiny Logger in Swift](https://medium.com/@sauvik_dolui/developing-a-tiny-logger-in-swift-7221751628e6)
+and by the lib [Logger](https://bitbucket.org/beappers/beapp.logger.andro) from Beapp
+*/
 public class Logger {
 	fileprivate static var dateFormat = "yyyy-MM-dd hh:mm:ss.SSS"
 	
@@ -41,10 +45,15 @@ public class Logger {
 		self.loggers = loggers
 	}
 	
+	/// init the Logger with the Default Appender (see PrintAppender)
 	public static func build() {
 		Logger.shared = Logger(loggers: [PrintAppender()])
 	}
 	
+	/// init the Logger with the Appenders of your choice
+	///
+	/// - Parameters:
+	///		- loggers: a list of appender
 	public static func build(with loggers: LoggerAppender...) {
 		Logger.shared = Logger(loggers: loggers)
 	}
