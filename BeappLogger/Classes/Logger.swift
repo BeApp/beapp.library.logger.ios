@@ -28,17 +28,9 @@ Inspired by the article [Developing a Tiny Logger in Swift](https://medium.com/@
 and by the lib [Logger](https://bitbucket.org/beappers/beapp.logger.andro) from Beapp
 */
 public class Logger {
-	fileprivate static var dateFormat = "yyyy-MM-dd hh:mm:ss.SSS"
-	
-	fileprivate static var dateFormatter: DateFormatter {
-		let formatter = DateFormatter()
-		formatter.dateFormat = dateFormat
-		formatter.locale = Locale.current
-		formatter.timeZone = TimeZone.current
-		return formatter
-	}
-	
 	private static var shared: Logger?
+	public static var formatter: LoggerFormatter = DefaultFormatter()
+	
 	private var loggers: [LoggerAppender]
 	
 	private init(loggers: [LoggerAppender]) {
@@ -58,14 +50,12 @@ public class Logger {
 		Logger.shared = Logger(loggers: loggers)
 	}
 	
+	/// init the Logger with the Appenders of your choice
+	///
 	/// - Parameters:
-	///   - object: Object or message to be logged
-	///   - filename: File name from where loggin to be done
-	///   - line: Line number in file from where the logging is done
-	///   - funcName: Name of the function from where the logging is done
-	///	  - priority: the log priority
-	public static func debug(_ object: Any?, filename: String = #file, line: Int = #line, funcName: String = #function) {
-		broadcastMessage(object, filename: filename, line: line, funcName: funcName, priority: .debug)
+	///		- loggers: a list of appender
+	public static func build(with loggers: [LoggerAppender]) {
+		Logger.shared = Logger(loggers: loggers)
 	}
 	
 	/// - Parameters:
@@ -74,8 +64,8 @@ public class Logger {
 	///   - line: Line number in file from where the logging is done
 	///   - funcName: Name of the function from where the logging is done
 	///	  - priority: the log priority
-	public static func info(_ object: Any?, filename: String = #file, line: Int = #line, funcName: String = #function) {
-		broadcastMessage(object, filename: filename, line: line, funcName: funcName, priority: .info)
+	public static func debug(_ object: Any?, file: String = #file, line: Int = #line, funcName: String = #function) {
+		broadcastMessage(object, file: file, line: line, funcName: funcName, priority: .debug)
 	}
 	
 	/// - Parameters:
@@ -84,8 +74,8 @@ public class Logger {
 	///   - line: Line number in file from where the logging is done
 	///   - funcName: Name of the function from where the logging is done
 	///	  - priority: the log priority
-	public static func warn(_ object: Any?, filename: String = #file, line: Int = #line, funcName: String = #function) {
-		broadcastMessage(object, filename: filename, line: line, funcName: funcName, priority: .warn)
+	public static func info(_ object: Any?, file: String = #file, line: Int = #line, funcName: String = #function) {
+		broadcastMessage(object, file: file, line: line, funcName: funcName, priority: .info)
 	}
 	
 	/// - Parameters:
@@ -94,8 +84,8 @@ public class Logger {
 	///   - line: Line number in file from where the logging is done
 	///   - funcName: Name of the function from where the logging is done
 	///	  - priority: the log priority
-	public static func error(_ object: Any?, filename: String = #file, line: Int = #line, funcName: String = #function) {
-		broadcastMessage(object, filename: filename, line: line, funcName: funcName, priority: .error)
+	public static func warn(_ object: Any?, file: String = #file, line: Int = #line, funcName: String = #function) {
+		broadcastMessage(object, file: file, line: line, funcName: funcName, priority: .warn)
 	}
 	
 	/// - Parameters:
@@ -104,8 +94,18 @@ public class Logger {
 	///   - line: Line number in file from where the logging is done
 	///   - funcName: Name of the function from where the logging is done
 	///	  - priority: the log priority
-	private static func broadcastMessage(_ object: Any?, filename: String, line: Int, funcName: String, priority: LoggerPriority) {
-		let message = createMessage(object, filename: filename, line: line, funcName: funcName, priority: priority)
+	public static func error(_ object: Any?, file: String = #file, line: Int = #line, funcName: String = #function) {
+		broadcastMessage(object, file: file, line: line, funcName: funcName, priority: .error)
+	}
+	
+	/// - Parameters:
+	///   - object: Object or message to be logged
+	///   - filename: File name from where loggin to be done
+	///   - line: Line number in file from where the logging is done
+	///   - funcName: Name of the function from where the logging is done
+	///	  - priority: the log priority
+	private static func broadcastMessage(_ object: Any?, file: String, line: Int, funcName: String, priority: LoggerPriority) {
+		let message = formatter.format(object, filename: sourceFileName(filePath: file), line: line, funcName: funcName, priority: priority)
 		safeExecuteForEach { $0.log(priority: priority, message: message) }
 	}
 	
@@ -120,18 +120,6 @@ public class Logger {
 		}
 		try? _shared.loggers.forEach(body)
 	}
-
-	///  Create the log message with the following parameters
-	///
-	/// - Parameters:
-	///   - object: Object or message to be logged
-	///   - filename: File name from where loggin to be done
-	///   - line: Line number in file from where the logging is done
-	///   - funcName: Name of the function from where the logging is done
-	///	  - priority: the log priority
-	private static func createMessage(_ object: Any?, filename: String, line: Int, funcName: String, priority: LoggerPriority) -> String {
-		return "\(Date().toString()) \(priority.rawValue)[\(sourceFileName(filePath: filename)): \(funcName) (\(line))] \(object ?? "NIL")"
-	}
 	
 	/// Extract the file name from the file path
 	///
@@ -143,10 +131,3 @@ public class Logger {
 	}
 
 }
-
-internal extension Date {
-	func toString() -> String {
-		return Logger.dateFormatter.string(from: self as Date)
-	}
-}
-
