@@ -13,16 +13,50 @@ class Tests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        XCTAssert(true, "Pass")
+    func testFormatter() {
+        let tinyFormatter = TinyFormatter()
+        let formatedString = tinyFormatter.format("test Message", filename: "", line: 0, funcName: "", priority: .debug)
+        XCTAssert("[💬] test Message" == formatedString)
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure() {
-            // Put the code you want to measure the time of here.
+    func testLogger() {
+        let dummyAppender = DummyAppender()
+        Logger.build(with: dummyAppender)
+        Logger.formatter = DummyLogger()
+        Logger.debug("test Message")
+        Logger.info("test Message")
+        Logger.warn("test Message")
+        Logger.error("test Message")
+        XCTAssert(dummyAppender.loglist.contains("formatted:DEBUG:test Message"))
+        XCTAssert(dummyAppender.loglist.contains("formatted:INFO:test Message"))
+        XCTAssert(dummyAppender.loglist.contains("formatted:WARN:test Message"))
+        XCTAssert(dummyAppender.loglist.contains("formatted:ERROR:test Message"))
+    }
+    
+    private class DummyLogger: LoggerFormatter {
+        func format(_ object: Any?, filename: String, line: Int, funcName: String, priority: LoggerPriority) -> String {
+            let priorityString: String
+            switch priority {
+            case .debug:
+               priorityString = "DEBUG"
+            case .info:
+               priorityString = "INFO"
+            case .warn:
+                priorityString = "WARN"
+            case .error:
+                priorityString = "ERROR"
+            }
+            return "formatted:\(priorityString):\(object ?? "NIL")"
         }
+        
+        
     }
-    
+    private class DummyAppender: LoggerAppender {
+        fileprivate var loglist: [String] = []
+        func log(priority: LoggerPriority, message: String) {
+            loglist.append(message)
+        }
+        
+        
+    }
 }
