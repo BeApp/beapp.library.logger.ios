@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'BeappLogger_Example' do
+  pod 'BeappLogger', :path => '../'
+
+  target 'BeappLogger_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
