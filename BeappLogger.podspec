@@ -10,6 +10,7 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '9.0'
   s.source_files = 'BeappLogger/Classes/**/*'
-  
+  s.swift_version = '5.0'
+
   s.frameworks = 'Foundation'
 end
