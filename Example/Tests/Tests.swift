@@ -56,7 +56,5 @@ class Tests: XCTestCase {
         func log(priority: LoggerPriority, message: String) {
             loglist.append(message)
         }
-        
-        
     }
 }
