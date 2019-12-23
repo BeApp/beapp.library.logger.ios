@@ -1,7 +1,11 @@
+
+platform :ios, '11.0'
+
 use_frameworks!
 
 target 'BeappLogger_Example' do
   pod 'BeappLogger', :path => '../'
+  pod 'BeappLogger/Crashlytics', :path => '../'
 
   target 'BeappLogger_Tests' do
     inherit! :search_paths
