@@ -21,7 +21,7 @@ public class CrashReportingAppender: LoggerAppender {
             let error = CrashReportingError(message: message)
             Crashlytics.sharedInstance().recordError(error)
         } else {
-            Crashlytics.sharedInstance().recordCustomExceptionName(priority.rawValue, reason: message, frameArray: [])
+            CLSLogv("%@", getVaList([message]))
         }
     }
 }
