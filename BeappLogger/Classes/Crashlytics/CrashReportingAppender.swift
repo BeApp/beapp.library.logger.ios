@@ -17,8 +17,12 @@ public class CrashReportingAppender: LoggerAppender {
     public init(){ }
     
     public func log(priority: LoggerPriority, message: String) {
-        let error = CrashReportingError(message: message)
-        Crashlytics.sharedInstance().recordError(error)
+        if priority == .error {
+            let error = CrashReportingError(message: message)
+            Crashlytics.sharedInstance().recordError(error)
+        } else {
+            Crashlytics.sharedInstance().recordCustomExceptionName(priority.rawValue, reason: message, frameArray: [])
+        }
     }
 }
 
