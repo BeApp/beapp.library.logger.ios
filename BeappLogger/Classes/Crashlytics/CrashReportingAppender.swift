@@ -17,21 +17,19 @@ public class CrashReportingAppender: LoggerAppender {
     public init(){ }
     
     public func log(priority: LoggerPriority, message: String) {
-        let error = CrashReportingError(message: message, priority: priority)
+        let error = CrashReportingError(message: message)
         Crashlytics.sharedInstance().recordError(error)
     }
 }
 
 private struct CrashReportingError : LocalizedError {
     var message: String
-    var priority: LoggerPriority
     
-    init(message: String, priority: LoggerPriority) {
+    init(message: String) {
         self.message = message
-        self.priority = priority
     }
     
     var errorDescription: String? {
-        return priority.rawValue + message
+        return message
     }
 }
