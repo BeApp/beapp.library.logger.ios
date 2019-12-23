@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'BeappLogger'
-    s.version          = '0.1.2'
+    s.version          = '0.2.0'
     s.summary          = 'This Pod allows you to centralize the logs of your app, and distribute them wherever you want.'
     
     s.homepage         = 'https://github.com/BeApp/beapp.library.logger.ios.git'
