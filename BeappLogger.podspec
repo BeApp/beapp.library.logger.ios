@@ -14,7 +14,6 @@ Pod::Spec.new do |s|
     
     s.frameworks = 'Foundation'
     s.dependency 'Crashlytics', '3.14.0'
-    s.dependency 'Firebase/Analytics'
     s.requires_arc    = true
     s.static_framework = true
     s.default_subspec = 'Log'
