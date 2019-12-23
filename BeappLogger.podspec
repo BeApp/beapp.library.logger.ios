@@ -13,6 +13,8 @@ Pod::Spec.new do |s|
     s.swift_version = '5.0'
     
     s.frameworks = 'Foundation'
+    s.dependency 'Crashlytics', '3.14.0'
+    s.dependency 'Firebase/Analytics'
     s.requires_arc    = true
     s.static_framework = true
     s.default_subspec = 'Log'
@@ -25,8 +27,6 @@ Pod::Spec.new do |s|
     s.subspec 'Crashlytics' do |crashlytics|
         crashlytics.xcconfig =
         { 'OTHER_CFLAGS' => '$(inherited) -DKITE_OFFER_CRASHLYTICS' }
-        crashlytics.dependency 'Crashlytics', '3.14.0'
-        crashlytics.dependency 'Firebase/Analytics'
-        crashlytics.source_files = 'BeappLogger/Classes/Crashlytics/*'
+        crashlytics.source_files = 'BeappLogger/Classes/**/*'
     end
 end
