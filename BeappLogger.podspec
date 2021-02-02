@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'BeappLogger'
-    s.version          = '0.2.2'
+    s.version          = '0.2.3'
     s.summary          = 'This Pod allows you to centralize the logs of your app, and distribute them wherever you want.'
     
     s.homepage         = 'https://github.com/BeApp/beapp.library.logger.ios.git'
@@ -10,10 +10,10 @@ Pod::Spec.new do |s|
     
     s.ios.deployment_target = '9.0'
     s.source_files = 'BeappLogger/Classes/**/*'
-    s.swift_version = '5.0'
+    s.swift_version = '5.3.2'
     
     s.frameworks = 'Foundation'
-    s.dependency 'Crashlytics', '3.14.0'
+    s.dependency 'Firebase/Crashlytics', '7.5.0'
     s.requires_arc    = true
     s.static_framework = true
     s.default_subspec = 'Log'

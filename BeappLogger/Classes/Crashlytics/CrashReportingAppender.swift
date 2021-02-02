@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Crashlytics
+import FirebaseCrashlytics
 /**
 Appender with CrashLytics
 
@@ -19,9 +19,9 @@ public class CrashReportingAppender: LoggerAppender {
     public func log(priority: LoggerPriority, message: String) {
         if priority == .error {
             let error = CrashReportingError(message: message)
-            Crashlytics.sharedInstance().recordError(error)
+            Crashlytics.crashlytics().record(error: error)
         } else {
-            CLSLogv("%@", getVaList([message]))
+            Crashlytics.crashlytics().log(format: "%@", arguments: getVaList([message]))
         }
     }
 }

@@ -1,4 +1,8 @@
 # BeappLogger
+https://cocoapod-badges.herokuapp.com/v/$PODNAME/$VERSION/badge.png
+
+[![CocoaPods](https://img.shields.io/cocoapods/v/BeappLogger.svg)](https://cocoapods.org/pods/BeappLogger)
+
 
 This Pod allows you to centralize the logs of your app, and distribute them wherever you want, thanks to an Appender system
 
