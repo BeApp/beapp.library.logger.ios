@@ -1,6 +1,4 @@
 # BeappLogger
-https://cocoapod-badges.herokuapp.com/v/$PODNAME/$VERSION/badge.png
-
 [![CocoaPods](https://img.shields.io/cocoapods/v/BeappLogger.svg)](https://cocoapods.org/pods/BeappLogger)
 
 
