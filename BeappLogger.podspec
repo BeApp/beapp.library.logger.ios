@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
     s.author           = { 'Beapp' => 'dev@beapp.fr' }
     s.source           = { :git => 'https://github.com/BeApp/beapp.library.logger.ios.git', :tag => s.version.to_s }
     
-    s.ios.deployment_target = '9.0'
+    s.ios.deployment_target = '10.0'
     s.source_files = 'BeappLogger/Classes/**/*'
     s.swift_version = '5.3.2'
     
