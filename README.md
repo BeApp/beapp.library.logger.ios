@@ -15,12 +15,6 @@ To install it, simply add the following line to your Podfile:
 pod 'BeappLogger'
 ```
 
-To install Crashlytics crash report add the  following line to your Podfile:
-
-```
-pod 'BeappLogger/Crashlytics'
-```
-
 ## Usage
 
 In your AppDelegate
