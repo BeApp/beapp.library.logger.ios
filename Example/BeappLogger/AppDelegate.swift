@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 		
-        let loggers: [LoggerAppender] = [CrashReportingAppender(), PrintAppender(), HtmlAppender(), GroupAppender(groupName: "your.group.name", appName: "Example")]
+        let loggers: [LoggerAppender] = [PrintAppender(), HtmlAppender(), GroupAppender(groupName: "your.group.name", appName: "Example")]
 		Logger.build(with: loggers)
 		
 		Logger.debug("TEST")
