@@ -39,7 +39,11 @@ public class Logger {
 	
 	/// init the Logger with the Default Appender (see PrintAppender)
 	public static func build() {
-		Logger.shared = Logger(loggers: [PrintAppender()])
+        if #available(iOS 14.0, *) {
+            Logger.shared = Logger(loggers: [OSLoggerAppender()])
+        } else {
+            Logger.shared = Logger(loggers: [PrintAppender()])
+        }
 	}
 	
 	/// init the Logger with the Appenders of your choice
