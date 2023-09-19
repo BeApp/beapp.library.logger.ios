@@ -1,11 +1,10 @@
 # BeappLogger
-[![CocoaPods](https://img.shields.io/cocoapods/v/BeappLogger.svg)](https://cocoapods.org/pods/BeappLogger)
 
+[![CocoaPods](https://img.shields.io/cocoapods/v/BeappLogger.svg)](https://cocoapods.org/pods/BeappLogger)
 
 This Pod allows you to centralize the logs of your app, and distribute them wherever you want, thanks to an Appender system
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
-
 
 ## Installation
 
@@ -23,7 +22,7 @@ In your AppDelegate
 Logger.build(with: PrintAppender(), FileAppender(filename: "app_log.txt"))
 ```
 
-or
+or use the default Logger (`OSLogger.log` for iOS >= 14.0 or `log` for iOS < 14.0)
 
 ```
 Logger.build()
@@ -37,6 +36,7 @@ Logger.info("TEST")
 Logger.warn("TEST")
 Logger.error("TEST")
 ```
+
 ### Result
 
 ```
