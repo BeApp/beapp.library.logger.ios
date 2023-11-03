@@ -133,5 +133,9 @@ public class Logger {
 		let components = filePath.components(separatedBy: "/")
 		return components.isEmpty ? "" : components.last!.replacingOccurrences(of: ".swift", with: "")
 	}
-
+    
+    /// Log the stack trace (as debug)
+    public static func trace(file: String = #file, line: Int = #line, funcName: String = #function) {
+        broadcastMessage("StackTrace\n\(Thread.callStackSymbols.joined(separator: "\n"))", file: file, line: line, funcName: funcName, priority: .debug)
+    }
 }

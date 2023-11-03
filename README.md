@@ -35,6 +35,7 @@ Logger.debug("TEST")
 Logger.info("TEST")
 Logger.warn("TEST")
 Logger.error("TEST")
+Logger.trace()
 ```
 
 ### Result
